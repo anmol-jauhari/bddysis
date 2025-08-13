@@ -1,137 +1,345 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Birthday Card - Mahima</title>
-	<style type="text/css">
-		body {
-			height: 100%;
-			margin: 0;
-			background: linear-gradient(270deg, #8e44ad, #3498db, #2ecc71, #e74c3c);
-			background-size: 800% 800%;
-			animation: GradientBG 20s ease infinite;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			font-family: 'Nobile', sans-serif;
-			user-select: none;
-		}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Birthday Card for Sister</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nobile&display=swap');
 
-		@keyframes GradientBG {
-			0% {background-position: 0% 50%;}
-			50% {background-position: 100% 50%;}
-			100% {background-position: 0% 50%;}
-		}
+  /* Reset and body styling */
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(to bottom, #87cefa, #ffffff);
+    overflow-x: hidden;
+    font-family: 'Nobile', sans-serif;
+    position: relative;
+  }
 
-		.card {
-			position: relative;
-			width: 300px;
-			height: 425px;
-			border: 10px solid #9612eb;
-			box-shadow: inset 10px 0 15px rgba(0,0,0,0.1);
-			background-image: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.5)), url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=500&q=80");
-			background-position: center;
-			background-repeat: no-repeat;
-			background-size: cover;
-			perspective: 1000px;
-			cursor: pointer;
-		}
+  /* Container for the whole card */
+  .card {
+    position: relative;
+    width: 320px;
+    max-width: 90vw;
+    height: 440px;
+    margin: 80px auto;
+    perspective: 1200px;
+  }
 
-		.card-inner {
-			position: relative;
-			width: 100%;
-			height: 100%;
-			transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-			transform-style: preserve-3d;
-		}
+  /* Flip card front and back */
+  .front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    border: 10px solid #9612eb;
+    box-shadow: inset 10px 0 15px rgba(0,0,0,0.1);
+    backface-visibility: hidden;
+    overflow: hidden;
+    transition: transform 0.8s ease-in-out;
+  }
 
-		.card.flipped .card-inner {
-			transform: rotateY(180deg);
-		}
+  /* Front side */
+  .front {
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.7)), url('https://images.unsplash.com/photo-1527481138388-31827a7c94d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60');
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-		.front, .back {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			border: 10px solid #9612eb;
-			border-radius: 0;
-			backface-visibility: hidden;
-			box-shadow: 0 6px 15px rgba(0,0,0,0.25);
-		}
+  .front .imgset img {
+    width: 90%;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    transform: translateZ(30px);
+  }
 
-		.front {
-			background-color: #9612eb;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			padding: 0;
-		}
+  /* Back side */
+  .back {
+    background-color: #e6f0e6;
+    color: #331717;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    transform: rotateY(180deg);
+    box-shadow:
+      0 0 15px 3px rgba(150,18,235,0.5),
+      inset 10px 0 15px rgba(150,18,235,0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
 
-		.front img {
-			width: 90%;
-			border-radius: 8px;
-			box-shadow: 0 6px 11px 7px rgba(0, 0, 0, 0.22);
-		}
+  .back #head {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
 
-		.back {
-			background-color: #e6f0e6;
-			color: #331717;
-			transform: rotateY(180deg);
-			padding: 40px 20px;
-			box-sizing: border-box;
-			text-align: center;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-		}
+  .back h5 {
+    margin: 0 0 20px 0;
+    font-weight: 600;
+    color: #9612eb;
+  }
 
-		#head {
-			font-size: 1.5em;
-			margin-bottom: 10px;
-			font-weight: 700;
-		}
+  .back p {
+    font-size: 1.1rem;
+    font-style: italic;
+    line-height: 1.4;
+    margin: 10px 0;
+  }
 
-		.text-container p {
-			font-size: 1.1em;
-			font-style: italic;
-			margin: 10px 0;
-		}
+  /* Flip effect */
+  .card:hover .front,
+  .card:focus-within .front {
+    transform: rotateY(-180deg);
+  }
+  .card:hover .back,
+  .card:focus-within .back {
+    transform: rotateY(0deg);
+  }
 
-		.text-container h5 {
-			margin-top: 20px;
-			color: #555;
-			font-weight: 400;
-		}
+  /* Balloon animation */
+  .balloon {
+    position: fixed;
+    bottom: -150px;
+    width: 40px;
+    height: 60px;
+    background-color: #ff4081;
+    border-radius: 20px 20px 40px 40px;
+    opacity: 0.9;
+    animation: floatUp linear infinite;
+    box-shadow: inset -4px -10px 10px rgba(255,255,255,0.3);
+  }
+  .balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 2px;
+    height: 15px;
+    background-color: #555;
+    transform: translateX(-50%);
+  }
+  .balloon:nth-child(1) {
+    left: 10%;
+    background-color: #ff4081;
+    animation-duration: 8s;
+    animation-delay: 0s;
+  }
+  .balloon:nth-child(2) {
+    left: 25%;
+    background-color: #2196f3;
+    animation-duration: 10s;
+    animation-delay: 2s;
+  }
+  .balloon:nth-child(3) {
+    left: 40%;
+    background-color: #ffeb3b;
+    animation-duration: 7s;
+    animation-delay: 4s;
+  }
+  .balloon:nth-child(4) {
+    left: 55%;
+    background-color: #4caf50;
+    animation-duration: 9s;
+    animation-delay: 1s;
+  }
+  .balloon:nth-child(5) {
+    left: 70%;
+    background-color: #e91e63;
+    animation-duration: 11s;
+    animation-delay: 3s;
+  }
+  .balloon:nth-child(6) {
+    left: 85%;
+    background-color: #ff9800;
+    animation-duration: 8.5s;
+    animation-delay: 5s;
+  }
 
-		/* Disable text selection for better UX */
-		.card, .card * {
-			user-select: none;
-		}
-	</style>
+  @keyframes floatUp {
+    0% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0.9;
+    }
+    50% {
+      transform: translateY(-30px) rotate(10deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-110vh) rotate(-10deg);
+      opacity: 0;
+    }
+  }
+
+  /* Fireworks container */
+  #fireworks {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Responsive text scaling */
+  @media (max-width: 400px) {
+    .back #head {
+      font-size: 1.4rem;
+    }
+    .back p {
+      font-size: 1rem;
+    }
+  }
+
+  /* Audio button */
+  #audio-control {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background: #9612eb;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 10;
+    box-shadow: 0 0 10px #9612eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
 </head>
 <body>
 
-<div class="card" id="card">
-	<div class="card-inner">
-		<div class="front">
-			<img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=500&q=80" alt="Birthday Image">
-		</div>
-		<div class="back">
-			<div class="text-container">
-				<p id="head">Happy Birthday, Mahima!</p>
-				<h5>@dev_aj</h5>
-				<p>May God bless you with endless joy, good health, and a life full of beautiful moments. You're truly a blessing, and I pray you always keep smiling and rising.</p>
-				<p>Have a wonderful year ahead!</p>
-			</div>
-		</div>
-	</div>
+<!-- Balloons -->
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+<div class="balloon"></div>
+
+<!-- Fireworks Canvas -->
+<canvas id="fireworks"></canvas>
+
+<!-- Birthday Card -->
+<div class="card" tabindex="0" aria-label="Birthday card for Mahima">
+  <div class="front">
+    <div class="imgset">
+      <img src="https://1.bp.blogspot.com/-Mgj9-rbs65E/XfMoPSD5gtI/AAAAAAAAURk/NBokE2gSS2cTSJ2em5lZ5hJDuTtRN7UVwCLcBGAsYHQ/s1600/2713997.png" alt="Birthday illustration" />
+    </div>
+  </div>
+  <div class="back">
+    <p id="head">Happy Birthday, Mahima!</p>
+    <h5>@dev_aj</h5>
+    <p>May God bless you with endless joy, good health, and a life full of beautiful moments. You're truly a blessing, and I pray you always keep smiling and rising.</p>
+    <p>Have a wonderful year ahead!</p>
+  </div>
 </div>
 
-<script>
-	const card = document.getElementById('card');
+<!-- Audio control button -->
+<button id="audio-control" aria-label="Toggle birthday music" title="Toggle music">🔈</button>
 
-	card.addEventListener('click', () => {
-		card.classList.toggle('flipped');
-	});
+<!-- Birthday song (copyright-free version) -->
+<audio id="birthday-song" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_f34054d4b6.mp3?filename=happy-birthday-4.mp3" type="audio/mpeg" />
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  // Fireworks animation on canvas (simple version)
+  const canvas = document.getElementById('fireworks');
+  const ctx = canvas.getContext('2d');
+  let cw, ch;
+
+  function resize() {
+    cw = window.innerWidth;
+    ch = window.innerHeight;
+    canvas.width = cw;
+    canvas.height = ch;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // Firework particle class
+  class Particle {
+    constructor(x, y, color) {
+      this.x = x;
+      this.y = y;
+      this.radius = 2 + Math.random() * 2;
+      this.color = color;
+      this.speed = Math.random() * 5 + 2;
+      this.angle = Math.random() * 2 * Math.PI;
+      this.life = 30 + Math.random() * 20;
+      this.remainingLife = this.life;
+      this.vx = Math.cos(this.angle) * this.speed;
+      this.vy = Math.sin(this.angle) * this.speed;
+      this.gravity = 0.05;
+    }
+    update() {
+      this.remainingLife--;
+      this.x += this.vx;
+      this.y += this.vy;
+      this.vy += this.gravity;
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.remainingLife / this.life;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  // Fireworks controller
+  const fireworks = [];
+  function createFirework() {
+    const x = Math.random() * cw;
+    const y = Math.random() * ch / 2;
+    const colors = ['#ff4d4d', '#ffcc00', '#33cc33', '#3399ff', '#ff66cc', '#ff9900'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    for (let i = 0; i < 30; i++) {
+      fireworks.push(new Particle(x, y, color));
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, cw, ch);
+    fireworks.forEach((p, i) => {
+      p.update();
+      p.draw();
+      if (p.remainingLife <= 0) fireworks.splice(i, 1);
+    });
+    if (Math.random() < 0.05) createFirework();
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Audio control
+  const audio = document.getElementById('birthday-song');
+  const btn = document.getElementById('audio-control');
+  let playing = false;
+
+  btn.addEventListener('click', () => {
+    if (!playing) {
+      audio.play();
+      btn.textContent = '🔊';
+      playing = true;
+    } else {
+      audio.pause();
+      btn.textContent = '🔈';
+      playing = false;
+    }
+  });
+
+  // Auto play on mobile requires user interaction (so not auto)
+  // But we can hint user by flashing the button or with instructions if needed
 </script>
 
 </body>
